@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF2B5" />
+      <stop offset="35%" stop-color="#D4AF37" />
+      <stop offset="70%" stop-color="#9C7A14" />
+      <stop offset="100%" stop-color="#DFBE65" />
+    </linearGradient>
+    <radialGradient id="discGrad" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="65%" stop-color="#F5EBD7" />
+      <stop offset="100%" stop-color="#E4D3AB" />
+    </radialGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Ring with Polished Bevel & Gold Rim -->
+  <circle cx="100" cy="100" r="95" fill="url(#discGrad)" stroke="url(#goldGrad)" stroke-width="6" filter="url(#softGlow)"/>
+  <circle cx="100" cy="100" r="89" fill="none" stroke="#222328" stroke-width="1.2" stroke-opacity="0.5"/>
+
+  <g transform="translate(100, 100) scale(0.92) translate(-100, -100)" fill="#1E2024">
+    <!-- Faceted Diamond atop the J stem -->
+    <g transform="translate(105, 58)">
+      <polygon points="-16,-9 16,-9 24,0 0,23 -24,0" fill="#1C1D21" />
+      <polygon points="-10,-9 10,-9 14,0 -14,0" fill="url(#goldGrad)" />
+      <polygon points="-14,0 0,23 0,0" fill="#8C6E28" opacity="0.9" />
+      <polygon points="14,0 0,23 0,0" fill="#DFBE65" opacity="0.9" />
+      <polygon points="-10,-9 -14,0 -24,0" fill="#5A4515" />
+      <polygon points="10,-9 14,0 24,0" fill="#FDF2B5" />
+      <polygon points="-24,0 0,23 -14,0" fill="#3D300F" />
+      <polygon points="24,0 0,23 14,0" fill="#DFBE65" />
+    </g>
+
+    <!-- Stylized Ornate 'C' Letter with graceful flourishes -->
+    <path d="M132,60 C120,44 98,42 78,54 C54,67 44,95 46,122 C48,146 63,169 90,173 C114,176 134,163 142,146 C143,143 139,140 136,142 C125,152 109,160 91,158 C72,156 59,140 57,121 C55,99 65,74 85,64 C98,57 113,58 123,68 C126,71 133,67 132,60 Z" />
+
+    <!-- Flourish swirls on top of C -->
+    <path d="M86,46 C102,37 126,36 142,42 C135,46 122,48 109,51 C98,53 85,51 86,46 Z" />
+    <path d="M72,56 C86,48 104,46 120,49 C111,52 98,54 87,58 C80,60 71,59 72,56 Z" opacity="0.85" />
+
+    <!-- Stem and Hook of 'J' -->
+    <path d="M96,82 L116,82 C118,82 120,84 120,87 L120,138 C120,158 106,172 86,172 C73,172 64,163 64,152 C64,141 74,137 82,142 C87,145 89,151 94,153 C99,155 105,151 105,141 L105,87 C105,84 103,82 96,82 Z" />
+    
+    <!-- Delicate lower flourish under C -->
+    <path d="M99,166 C116,166 131,157 141,147 C137,152 123,164 105,167 C99,168 95,167 99,166 Z" opacity="0.6" />
+  </g>
+</svg>

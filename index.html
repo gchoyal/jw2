@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choksiwala Jewellers | BIS 91.6 Hallmarked Gold, Diamond & Silver — Est. 1955</title>
+  <meta name="description" content="Choksiwala Jewellers (स्था. १९५५) — In-house manufacturer & retailer of BIS 91.6 Hallmarked Gold, Diamonds & Silver. Showrooms in Kukshi (Loni Darwaja, Sutar Mohalla) & Barwani, MP.">
+  
+  <link rel="icon" type="image/png" href="images/logo_clean.png">
+
+  <!-- Typography: Cormorant Garamond (Serif), Roboto (Clean Sans), Noto Serif Devanagari (Hindi) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@300;400;500;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body: ['Roboto', 'sans-serif'],
+            sans: ['Roboto', 'sans-serif'],
+            devanagari: ['"Noto Serif Devanagari"', 'serif'],
+          },
+          colors: {
+            gold: {
+              DEFAULT: '#B89222',
+              dark: '#8C6810',
+              light: '#DFBE65',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: #FAFAF7;
+      color: #1A1A1A;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+    }
+    .img-zoom {
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .group:hover .img-zoom {
+      transform: scale(1.04);
+    }
+
+    /* Custom Leaflet Map and Popup Styling for Luxury Theme */
+    .leaflet-popup-content-wrapper {
+      background: #ffffff !important;
+      color: #1a1a1a !important;
+      border-radius: 4px !important;
+      padding: 0 !important;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08) !important;
+      overflow: hidden !important;
+      border: 1px solid #e7e5e4 !important;
+    }
+    .leaflet-popup-content {
+      margin: 0 !important;
+      line-height: 1.4 !important;
+      font-family: 'Roboto', sans-serif !important;
+    }
+    .leaflet-popup-tip {
+      background: #ffffff !important;
+    }
+    .custom-leaflet-marker {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    /* Jewellery Floating Animation */
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(0.5deg); }
+    }
+    .floating-jewel {
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="font-body selection:bg-stone-900 selection:text-white pb-16 md:pb-0">
+
+  <!-- ========================================================================= -->
+  <!-- NAVIGATION: CLEAN, RESPONSIVE, NO OVERLAPPING ON TABLETS/PHONES -->
+  <!-- ========================================================================= -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-stone-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-20 sm:h-24 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Name -->
+      <a href="index.html" class="flex items-center gap-3.5 shrink-0">
+        <img src="images/logo_clean.png" alt="Choksiwala Jewellers" class="w-11 h-11 sm:w-13 sm:h-13 object-contain rounded-full">
+        <div class="flex flex-col">
+          <span class="font-display text-2xl sm:text-3xl font-semibold tracking-[0.1em] uppercase text-stone-900 leading-none">
+            Choksiwala
+          </span>
+          <span class="text-[10px] sm:text-[11px] tracking-[0.25em] text-stone-500 uppercase font-medium mt-1">
+            Jewellers • Est. 1955
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links (ONLY on lg: 1024px+, never overlapping on 791px tablet screens!) -->
+      <nav class="hidden lg:flex items-center gap-8 xl:gap-12 text-sm font-medium tracking-[0.18em] uppercase text-stone-700">
+        <a href="index.html" class="text-stone-950 font-semibold border-b-2 border-stone-900 pb-1">Home</a>
+        <a href="about.html" class="hover:text-stone-950 transition-colors">About</a>
+        <a href="collections.html" class="hover:text-stone-950 transition-colors">Collection</a>
+        <a href="contact.html" class="hover:text-stone-950 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right: WhatsApp Button + Hamburger for Tablet/Mobile -->
+      <div class="flex items-center gap-3 sm:gap-5 shrink-0">
+        <a href="https://wa.me/919169168158?text=Namaste%20Choksiwala%20Jewellers,%20I%20would%20like%20to%20enquire%20about%20your%20jewellery." 
+           target="_blank" 
+           class="inline-flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider font-medium text-stone-900 hover:text-stone-600 border border-stone-300 hover:border-stone-900 px-3 py-1.5 sm:px-4 sm:py-2 rounded transition-colors whitespace-nowrap">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600"></i>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Mobile / Tablet Hamburger Toggle Button (Shown below 1024px) -->
+        <button id="mobileMenuBtn" aria-label="Toggle Menu" class="lg:hidden p-2 text-stone-800 hover:text-stone-950 focus:outline-none border border-stone-200 rounded">
+          <i data-lucide="menu" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile & Tablet Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-stone-200 px-6 py-6 space-y-4 shadow-xl">
+      <a href="index.html" class="block text-base font-semibold uppercase tracking-wider text-stone-950 border-b border-stone-100 pb-2">Home</a>
+      <a href="about.html" class="block text-base font-normal uppercase tracking-wider text-stone-700 hover:text-stone-950 border-b border-stone-100 pb-2">About Heritage</a>
+      <a href="collections.html" class="block text-base font-normal uppercase tracking-wider text-stone-700 hover:text-stone-950 border-b border-stone-100 pb-2">The Collection</a>
+      <a href="contact.html" class="block text-base font-normal uppercase tracking-wider text-stone-700 hover:text-stone-950 pb-2">Contact & Showrooms</a>
+      <div class="pt-3 border-t border-stone-200 flex flex-col gap-2.5 text-sm text-stone-800 font-normal">
+        <a href="tel:+919169168158" class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-stone-600"></i> Kukshi / WhatsApp: +91 91691 68158</a>
+        <a href="tel:+919169162285" class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-stone-600"></i> Barwani: +91 91691 62285</a>
+        <a href="mailto:choksiwalajewellers@gmail.com" class="flex items-center gap-2 text-stone-600"><i data-lucide="mail" class="w-4 h-4 text-stone-600"></i> choksiwalajewellers@gmail.com</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 1. HERO BANNER: img1_board.jpg BACKGROUND (LESS DARK OVERLAY) + AUTO-SLIDER -->
+  <!-- ========================================================================= -->
+  <section class="relative w-full min-h-[82vh] sm:min-h-[88vh] flex items-center overflow-hidden bg-stone-900">
+    
+    <!-- User's Official Kukshi Showroom Facade (img1_board.jpg) -->
+    <img src="images/img1_board.jpg" 
+         alt="Choksiwala Jewellers Kukshi Flagship Showroom" 
+         class="absolute inset-0 w-full h-full object-cover object-center">
+    
+    <!-- Lighter Luxury Overlay (Allows the showroom facade & architecture to shine!) -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/25"></div>
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    <!-- Hero Content: 2 Columns (Headline on Left, Transparent Jewellery Slider on Right) -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-16 sm:py-24 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        
+        <!-- Left: Editorial Brand Introduction (7 cols) -->
+        <div class="lg:col-span-7 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-stone-900/80 backdrop-blur-md border border-[#DFBE65]/40 text-[#DFBE65] text-xs sm:text-sm tracking-[0.25em] uppercase font-medium mb-5 shadow-lg">
+            <span class="font-devanagari font-normal">स्था. १९५५</span>
+            <span>•</span>
+            <span>70 Years of Purity</span>
+          </div>
+          <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-normal text-white tracking-tight leading-[1.05] mb-6 drop-shadow-md">
+            Pure 91.6 Gold.<br>Generational Trust.
+          </h1>
+          <p class="text-stone-100 text-base sm:text-xl font-normal max-w-xl leading-relaxed mb-8 drop-shadow">
+            In-house manufacturers & retailers of 100% BIS 91.6 Hallmarked 22K Gold, certified Diamonds, and Fine Silver ornaments in Kukshi & Barwani.
+          </p>
+          <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+            <a href="collections.html" class="inline-flex items-center gap-2 bg-white text-stone-950 px-8 py-4 text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold hover:bg-stone-200 transition-colors shadow-2xl">
+              <span>Explore Collections</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#showroom-map-section" class="inline-flex items-center gap-2 bg-stone-950/40 backdrop-blur-md text-white border border-white/60 px-8 py-4 text-xs sm:text-sm uppercase tracking-[0.2em] font-medium hover:bg-white/20 transition-colors">
+              <span>Find Showrooms</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Transparent Jewellery Showcase Auto-Fading Slider (5 cols - in Green Box location!) -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center relative mt-6 lg:mt-0">
+          <div class="relative w-full max-w-[380px] sm:max-w-[420px] aspect-square flex items-center justify-center">
+            
+            <!-- Soft golden radial halo behind jewellery -->
+            <div class="absolute inset-2 sm:inset-6 rounded-full bg-gradient-to-tr from-[#DFBE65]/20 via-[#B89222]/15 to-transparent blur-2xl pointer-events-none"></div>
+
+            <!-- Slide 0: 22K Bridal Gold Necklace -->
+            <div class="hero-jewel-slide absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-in-out opacity-100 scale-100" data-slide="0">
+              <div class="floating-jewel flex items-center justify-center h-[280px] sm:h-[320px] w-full">
+                <img src="images/trans_necklace.png" alt="22K BIS 91.6 Bridal Rani Haar" class="max-h-full max-w-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)]">
+              </div>
+              <div class="mt-3 bg-stone-950/85 backdrop-blur-md border border-[#DFBE65]/50 px-5 py-2 rounded-full shadow-2xl text-center">
+                <span class="text-xs uppercase tracking-[0.2em] font-semibold text-[#DFBE65]">✦ 22K BIS 91.6 Bridal Rani Haar</span>
+              </div>
+            </div>
+
+            <!-- Slide 1: 22K Antique Carved Bangles -->
+            <div class="hero-jewel-slide absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-in-out opacity-0 scale-95 pointer-events-none" data-slide="1">
+              <div class="floating-jewel flex items-center justify-center h-[280px] sm:h-[320px] w-full">
+                <img src="images/trans_bangles.png" alt="22K Carved Gold Kadas" class="max-h-full max-w-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)]">
+              </div>
+              <div class="mt-3 bg-stone-950/85 backdrop-blur-md border border-[#DFBE65]/50 px-5 py-2 rounded-full shadow-2xl text-center">
+                <span class="text-xs uppercase tracking-[0.2em] font-semibold text-[#DFBE65]">✦ 22K Carved Pachheli Kadas</span>
+              </div>
+            </div>
+
+            <!-- Slide 2: Certified Solitaire Diamond Ring -->
+            <div class="hero-jewel-slide absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-in-out opacity-0 scale-95 pointer-events-none" data-slide="2">
+              <div class="floating-jewel flex items-center justify-center h-[280px] sm:h-[320px] w-full">
+                <img src="images/trans_ring.png" alt="Certified Solitaire Diamond Band" class="max-h-full max-w-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)]">
+              </div>
+              <div class="mt-3 bg-stone-950/85 backdrop-blur-md border border-[#DFBE65]/50 px-5 py-2 rounded-full shadow-2xl text-center">
+                <span class="text-xs uppercase tracking-[0.2em] font-semibold text-[#DFBE65]">✦ Certified Solitaire Diamond Band</span>
+              </div>
+            </div>
+
+            <!-- Slide 3: Royal Gold Jhumkis -->
+            <div class="hero-jewel-slide absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-in-out opacity-0 scale-95 pointer-events-none" data-slide="3">
+              <div class="floating-jewel flex items-center justify-center h-[280px] sm:h-[320px] w-full">
+                <img src="images/trans_earrings.png" alt="Royal Gold Chandbalis & Jhumkis" class="max-h-full max-w-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)]">
+              </div>
+              <div class="mt-3 bg-stone-950/85 backdrop-blur-md border border-[#DFBE65]/50 px-5 py-2 rounded-full shadow-2xl text-center">
+                <span class="text-xs uppercase tracking-[0.2em] font-semibold text-[#DFBE65]">✦ Royal Tiered Gold Jhumkis</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Slider Auto Progress Indicators -->
+          <div class="flex items-center gap-2.5 mt-5 z-20">
+            <button type="button" class="hero-slide-dot w-8 h-1 rounded-full bg-[#DFBE65] transition-all" data-target="0" aria-label="Slide 1"></button>
+            <button type="button" class="hero-slide-dot w-2.5 h-1 rounded-full bg-white/40 hover:bg-white/70 transition-all" data-target="1" aria-label="Slide 2"></button>
+            <button type="button" class="hero-slide-dot w-2.5 h-1 rounded-full bg-white/40 hover:bg-white/70 transition-all" data-target="2" aria-label="Slide 3"></button>
+            <button type="button" class="hero-slide-dot w-2.5 h-1 rounded-full bg-white/40 hover:bg-white/70 transition-all" data-target="3" aria-label="Slide 4"></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 2. THE JEWELLERY COLLECTIONS: DIRECTLY BELOW HERO BANNER -->
+  <!-- ========================================================================= -->
+  <section class="w-full bg-[#FAFAF7]">
+    
+    <!-- Section Title Bar -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 sm:py-16 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-stone-200">
+      <div>
+        <span class="text-xs uppercase tracking-[0.28em] text-stone-500 font-bold block mb-2">In-House Manufacturing</span>
+        <h2 class="font-display text-4xl sm:text-6xl font-normal text-stone-900 leading-none">
+          The Jewellery Collections
+        </h2>
+      </div>
+      <div class="flex items-center gap-4 text-xs sm:text-sm uppercase tracking-[0.2em] text-stone-600 font-semibold">
+        <span>BIS 91.6 Hallmark</span>
+        <span>•</span>
+        <span>HUID Laser Verified</span>
+      </div>
+    </div>
+
+    <!-- FULL-WIDTH GALLERY GRID (GAPLESS, CLEAN, ALL 6 IMAGES FIXED!) -->
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-b border-stone-200 bg-stone-900">
+      
+      <!-- Card 1: Bridal & Heritage Necklaces -->
+      <a href="collections.html?cat=necklaces" class="group relative block aspect-[4/5] overflow-hidden bg-stone-900">
+        <img src="images/cat-necklaces--s2PpFCM.jpg" 
+             alt="Choksiwala Bridal 22K Gold Necklaces" 
+             class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
+          <span class="text-xs uppercase tracking-[0.25em] text-[#DFBE65] font-semibold mb-1">Pure 22K Gold</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white font-normal mb-2">Bridal Rani Haar & Necklaces</h3>
+          <p class="text-stone-300 text-sm font-normal line-clamp-2 mb-4 leading-relaxed">
+            Handcrafted chokers, temple haar, and statement bridal sets cast in 91.6 hallmarked gold.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#DFBE65] transition-colors">
+            <span>View Designs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2: Bangles & Antique Kadas -->
+      <a href="collections.html?cat=bangles" class="group relative block aspect-[4/5] overflow-hidden bg-stone-900">
+        <img src="images/cat-bangles-DubHrDh9.jpg" 
+             alt="22K Gold Carved Bangles & Kadas" 
+             class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
+          <span class="text-xs uppercase tracking-[0.25em] text-[#DFBE65] font-semibold mb-1">Timeless Heirlooms</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white font-normal mb-2">Gold Bangles & Carved Kadas</h3>
+          <p class="text-stone-300 text-sm font-normal line-clamp-2 mb-4 leading-relaxed">
+            Solid gold pachheli, meenakari bangles, screw kadas, and daily wear polished bands.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#DFBE65] transition-colors">
+            <span>View Designs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3: Rings & Solitaires -->
+      <a href="collections.html?cat=rings" class="group relative block aspect-[4/5] overflow-hidden bg-stone-900">
+        <img src="images/cat-rings-DZXxH2Nr.jpg" 
+             alt="Gold & Diamond Rings" 
+             class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
+          <span class="text-xs uppercase tracking-[0.25em] text-[#DFBE65] font-semibold mb-1">Certified Diamonds & 22K</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white font-normal mb-2">Rings & Engagement Bands</h3>
+          <p class="text-stone-300 text-sm font-normal line-clamp-2 mb-4 leading-relaxed">
+            Solitaire engagement rings, floral gold cocktail rings, and matched wedding couple bands.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#DFBE65] transition-colors">
+            <span>View Designs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4: Chains, Mangalsutra & Kandora (FIXED REAL FILENAME) -->
+      <a href="collections.html?cat=chains" class="group relative block aspect-[4/5] overflow-hidden bg-stone-900">
+        <img src="images/cat-chains-TWGZ-xMy.jpg" 
+             alt="Gold Chains and Daily Wear" 
+             class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
+          <span class="text-xs uppercase tracking-[0.25em] text-[#DFBE65] font-semibold mb-1">Pure 22K Daily Wear</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white font-normal mb-2">Chains & Traditional Kandora</h3>
+          <p class="text-stone-300 text-sm font-normal line-clamp-2 mb-4 leading-relaxed">
+            Nimar-special solid chains, waist kandora, and black-bead certified mangalsutra.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#DFBE65] transition-colors">
+            <span>View Designs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 5: Earrings & Jhumkis (FIXED REAL FILENAME) -->
+      <a href="collections.html?cat=earrings" class="group relative block aspect-[4/5] overflow-hidden bg-stone-900">
+        <img src="images/cat-earrings-QkCZXYGF.jpg" 
+             alt="Gold Jhumkis and Chandbalis" 
+             class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
+          <span class="text-xs uppercase tracking-[0.25em] text-[#DFBE65] font-semibold mb-1">Lightweight to Royal</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white font-normal mb-2">Jhumkis & Chandbalis</h3>
+          <p class="text-stone-300 text-sm font-normal line-clamp-2 mb-4 leading-relaxed">
+            Delicate daily tops, festive tiered jhumkis, sui dhaga, and traditional chandbalis.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#DFBE65] transition-colors">
+            <span>View Designs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 6: Fine Silver & Pooja Articles (FIXED REAL FILENAME) -->
+      <a href="collections.html?cat=silver" class="group relative block aspect-[4/5] overflow-hidden bg-stone-900">
+        <img src="images/cat-silver.jpg" 
+             alt="Fine Silver Articles and Ornaments" 
+             class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
+          <span class="text-xs uppercase tracking-[0.25em] text-[#DFBE65] font-semibold mb-1">Certified Fine Silver</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white font-normal mb-2">Silver Ornaments & Pooja Articles</h3>
+          <p class="text-stone-300 text-sm font-normal line-clamp-2 mb-4 leading-relaxed">
+            Chased silver payal, heavy anklets, handcrafted thalis, idols, and gifting coins.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#DFBE65] transition-colors">
+            <span>View Designs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- View All Collections Action -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <p class="text-stone-600 text-sm sm:text-base font-normal">
+        All designs are hallmarked with Bureau of Indian Standards 6-digit laser HUID verification.
+      </p>
+      <a href="collections.html" class="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] font-semibold text-stone-900 hover:text-stone-600 border-b-2 border-stone-900 pb-1 transition-colors whitespace-nowrap">
+        <span>View Full Catalog</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. REAL SHOWROOM IMAGES SECTION (FULL-WIDTH 3-PHOTO DISPLAY) -->
+  <!-- ========================================================================= -->
+  <section class="w-full bg-white py-16 sm:py-24 border-t border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 mb-10 sm:mb-14">
+      <div class="max-w-2xl">
+        <span class="text-xs uppercase tracking-[0.28em] text-stone-500 font-bold block mb-2">Architectural Spaces</span>
+        <h2 class="font-display text-4xl sm:text-6xl font-normal text-stone-900 leading-tight mb-4">
+          Visit Our Showrooms
+        </h2>
+        <p class="text-stone-700 text-base sm:text-lg font-normal leading-relaxed">
+          Crafted for privacy, personalized bridal consultation, and family comfort across Kukshi and Barwani.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 Real Showroom Photos Side-by-Side (Full Width Gapless) -->
+    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-stone-200 bg-stone-900">
+      
+      <!-- Photo 1: Kukshi Exterior Signboard & Building -->
+      <div class="group relative aspect-[4/3] overflow-hidden bg-stone-900">
+        <img src="images/img1_board.jpg" alt="Choksiwala Kukshi Showroom Facade" class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+          <span class="text-[11px] uppercase tracking-[0.25em] text-[#DFBE65] font-semibold">Flagship Facade</span>
+          <h4 class="font-display text-2xl text-white font-normal mt-1">Kukshi Flagship Building</h4>
+          <p class="text-sm text-stone-300 mt-1 font-normal leading-relaxed">
+            Multi-floor bridal destination with on-site master karigar workshop.
+          </p>
+        </div>
+      </div>
+
+      <!-- Photo 2: Inner Showroom Consultation Counters -->
+      <div class="group relative aspect-[4/3] overflow-hidden bg-stone-900">
+        <img src="images/img3_inner_showroom.jpg" alt="Choksiwala Inner Showroom Counters" class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+          <span class="text-[11px] uppercase tracking-[0.25em] text-[#DFBE65] font-semibold">Jewellery Gallery</span>
+          <h4 class="font-display text-2xl text-white font-normal mt-1">Interior Display Counters</h4>
+          <p class="text-sm text-stone-300 mt-1 font-normal leading-relaxed">
+            Illuminated cases displaying pure 22K hallmarked ornaments and certified diamonds.
+          </p>
+        </div>
+      </div>
+
+      <!-- Photo 3: Customer Seating & Bridal Consultation -->
+      <div class="group relative aspect-[4/3] overflow-hidden bg-stone-900">
+        <img src="images/img7_inner_seating.jpg" alt="Choksiwala Customer Seating Lounge" class="w-full h-full object-cover img-zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+          <span class="text-[11px] uppercase tracking-[0.25em] text-[#DFBE65] font-semibold">Family Hospitality</span>
+          <h4 class="font-display text-2xl text-white font-normal mt-1">Customer Seating Lounge</h4>
+          <p class="text-sm text-stone-300 mt-1 font-normal leading-relaxed">
+            Plush air-conditioned lounge where whole families and bridal parties sit comfortably to choose heirlooms.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Showroom Details & Direct Contact Info -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 mt-14 sm:mt-18 grid md:grid-cols-2 gap-10 sm:gap-14">
+      
+      <!-- Kukshi Showroom Card -->
+      <div class="border-t-2 border-stone-300 pt-6">
+        <span class="text-xs uppercase tracking-[0.22em] text-stone-500 font-bold block mb-1.5">Flagship Showroom</span>
+        <h3 class="font-display text-3xl sm:text-4xl font-normal text-stone-900 mb-2">Choksiwala • Kukshi</h3>
+        <p class="text-stone-700 text-base leading-relaxed mb-4 font-normal">
+          LONI DARWAJA, SUTAR MOHALLA, KUKSHI, Dhar, Madhya Pradesh (454331)<br>
+          <span class="text-stone-500">Features:</span> Master Karigar Workshop, Bridal Lounge, Valet Parking.
+        </p>
+        <div class="flex flex-wrap items-center gap-6 text-sm uppercase tracking-[0.16em] font-semibold">
+          <a href="tel:+919169168158" class="text-stone-950 hover:text-stone-600 border-b-2 border-stone-800 pb-1">
+            Call: +91 91691 68158
+          </a>
+          <a href="https://wa.me/919169168158" target="_blank" class="text-stone-950 hover:text-stone-600 border-b-2 border-stone-800 pb-1">
+            WhatsApp
+          </a>
+          <a href="https://share.google/7waf1XWKQStQL0Fre" target="_blank" class="text-stone-950 hover:text-stone-600 border-b-2 border-stone-800 pb-1 inline-flex items-center gap-1">
+            <span>Google Maps</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Barwani Showroom Card -->
+      <div class="border-t-2 border-stone-300 pt-6">
+        <span class="text-xs uppercase tracking-[0.22em] text-stone-500 font-bold block mb-1.5">City Branch</span>
+        <h3 class="font-display text-3xl sm:text-4xl font-normal text-stone-900 mb-2">Choksiwala • Barwani</h3>
+        <p class="text-stone-700 text-base leading-relaxed mb-4 font-normal">
+          Main Market, Barwani, Madhya Pradesh 451551<br>
+          <span class="text-stone-500">Features:</span> Full 22K Gold & Silver Collection, Instant Purity Verification.
+        </p>
+        <div class="flex flex-wrap items-center gap-6 text-sm uppercase tracking-[0.16em] font-semibold">
+          <a href="tel:+919169162285" class="text-stone-950 hover:text-stone-600 border-b-2 border-stone-800 pb-1">
+            Call: +91 91691 62285
+          </a>
+          <a href="https://wa.me/919169168158" target="_blank" class="text-stone-950 hover:text-stone-600 border-b-2 border-stone-800 pb-1">
+            WhatsApp
+          </a>
+          <a href="https://share.google/UKaumSr0xIt8iGNDl" target="_blank" class="text-stone-950 hover:text-stone-600 border-b-2 border-stone-800 pb-1 inline-flex items-center gap-1">
+            <span>Google Maps</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. EDITORIAL STATEMENT -->
+  <!-- ========================================================================= -->
+  <section class="py-20 sm:py-28 bg-white border-b border-stone-200">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500 mb-4 block">
+        Pure 91.6 Hallmarked Jewellery
+      </span>
+      <h2 class="font-display text-4xl sm:text-6xl font-normal leading-tight text-stone-900 mb-8">
+        "Manufactured in our own workshops, finished by hand, and cherished across families for seventy years."
+      </h2>
+      <p class="text-stone-700 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal mb-10">
+        Established in 1955, Choksiwala Jewellers is central Madhya Pradesh's premier destination for certified 22K (916) Gold, Diamond, and Silver jewellery. Every single piece carries the official BIS hallmark with laser-etched HUID verification.
+      </p>
+      <div class="flex items-center justify-center gap-8 text-sm uppercase tracking-[0.18em] text-stone-600 font-semibold pt-8 border-t border-stone-200 max-w-md mx-auto">
+        <span>22K BIS 91.6</span>
+        <span>•</span>
+        <span>स्था. १९५५</span>
+        <span>•</span>
+        <span>In-House Craft</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. FOUR PILLARS OF INTEGRITY -->
+  <!-- ========================================================================= -->
+  <section class="bg-[#FAFAF7] py-20 sm:py-24 border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-14">
+        
+        <div>
+          <span class="text-sm font-bold tracking-widest text-stone-400 block mb-2">01</span>
+          <h4 class="font-display text-2xl font-medium text-stone-900 mb-2">BIS 91.6 Hallmarked</h4>
+          <p class="text-sm text-stone-600 font-normal leading-relaxed">
+            Laser HUID code etched on every piece, verifiable on the BIS CARE app.
+          </p>
+        </div>
+
+        <div>
+          <span class="text-sm font-bold tracking-widest text-stone-400 block mb-2">02</span>
+          <h4 class="font-display text-2xl font-medium text-stone-900 mb-2">Founded in 1955</h4>
+          <p class="text-sm text-stone-600 font-normal leading-relaxed">
+            Over 70 continuous years of customer trust across central India.
+          </p>
+        </div>
+
+        <div>
+          <span class="text-sm font-bold tracking-widest text-stone-400 block mb-2">03</span>
+          <h4 class="font-display text-2xl font-medium text-stone-900 mb-2">In-House Workshop</h4>
+          <p class="text-sm text-stone-600 font-normal leading-relaxed">
+            Master artisans manufacture directly with zero middleman markups.
+          </p>
+        </div>
+
+        <div>
+          <span class="text-sm font-bold tracking-widest text-stone-400 block mb-2">04</span>
+          <h4 class="font-display text-2xl font-medium text-stone-900 mb-2">Gold, Diamond & Silver</h4>
+          <p class="text-sm text-stone-600 font-normal leading-relaxed">
+            Comprehensive fine jewellery and sacred pooja silver articles.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. SHOWROOM LOCATIONS & DIRECT INQUIRY (MAP ON LEFT, FORM ON RIGHT) -->
+  <!-- ========================================================================= -->
+  <section id="showroom-map-section" class="py-16 sm:py-24 bg-white border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <!-- Section Header -->
+      <div class="mb-10 sm:mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] text-stone-500 font-medium block mb-2">Interactive Showrooms & Contact</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-normal text-stone-900 leading-tight">
+          Find Us in Kukshi & Barwani
+        </h2>
+        <p class="text-stone-600 text-sm sm:text-base max-w-2xl font-normal mt-2 leading-relaxed">
+          Click either showroom pin on the map to view showroom photos, full street directions, or submit a direct WhatsApp inquiry.
+        </p>
+      </div>
+
+      <!-- 2-Column Grid: Interactive Map Left, Contact Form Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        
+        <!-- Left: Interactive Leaflet Map with Both Pins -->
+        <div class="lg:col-span-7 flex flex-col">
+          
+          <!-- Map Quick Controls Bar -->
+          <div class="flex items-center justify-between gap-2 mb-3" id="homeMap-controls">
+            <span class="text-xs uppercase tracking-wider text-stone-500 font-medium flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-700"></i>
+              <span>Select Location:</span>
+            </span>
+            <div class="flex items-center gap-2">
+              <button type="button" data-loc="all" class="text-xs uppercase tracking-wider font-medium px-2.5 py-1 bg-stone-900 text-white rounded hover:bg-stone-800 transition-colors">
+                Both Showrooms
+              </button>
+              <button type="button" data-loc="kukshi" class="text-xs uppercase tracking-wider font-medium px-2.5 py-1 border border-stone-300 text-stone-700 rounded hover:border-stone-900 hover:text-stone-950 transition-colors">
+                Kukshi Flagship
+              </button>
+              <button type="button" data-loc="barwani" class="text-xs uppercase tracking-wider font-medium px-2.5 py-1 border border-stone-300 text-stone-700 rounded hover:border-stone-900 hover:text-stone-950 transition-colors">
+                Barwani Branch
+              </button>
+            </div>
+          </div>
+
+          <!-- Leaflet Map Container -->
+          <div class="relative w-full h-[450px] sm:h-[520px] border border-stone-300 shadow-sm overflow-hidden z-10">
+            <div id="homeMap" class="w-full h-full"></div>
+          </div>
+
+          <!-- Direct Google Maps Profile Cards Below Map -->
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <a href="https://share.google/7waf1XWKQStQL0Fre" target="_blank" class="p-3 bg-[#FAFAF7] border border-stone-200 hover:border-stone-900 transition-colors flex items-center justify-between group">
+              <div>
+                <span class="font-semibold text-stone-900 block">Kukshi Flagship Profile</span>
+                <span class="text-stone-500 text-[11px]">Loni Darwaja, Sutar Mohalla (454331)</span>
+              </div>
+              <i data-lucide="external-link" class="w-4 h-4 text-stone-400 group-hover:text-stone-900 transition-colors"></i>
+            </a>
+            <a href="https://share.google/UKaumSr0xIt8iGNDl" target="_blank" class="p-3 bg-[#FAFAF7] border border-stone-200 hover:border-stone-900 transition-colors flex items-center justify-between group">
+              <div>
+                <span class="font-semibold text-stone-900 block">Barwani Branch Profile</span>
+                <span class="text-stone-500 text-[11px]">Main Market, Barwani (451551)</span>
+              </div>
+              <i data-lucide="external-link" class="w-4 h-4 text-stone-400 group-hover:text-stone-900 transition-colors"></i>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right: Contact & Direct WhatsApp Inquiry Card -->
+        <div class="lg:col-span-5 bg-[#FAFAF7] border border-stone-200 p-6 sm:p-8">
+          
+          <div class="mb-6 pb-6 border-b border-stone-200">
+            <h3 class="font-display text-2xl font-semibold text-stone-900 mb-2">
+              Direct Showroom Inquiry
+            </h3>
+            <p class="text-xs sm:text-sm text-stone-600 font-normal leading-relaxed mb-4">
+              Connect with our master sales counter on WhatsApp. We share live design photos, weights, and today's gold rate.
+            </p>
+            <div class="space-y-2 text-xs font-normal text-stone-700">
+              <div class="flex items-start gap-2">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-stone-600 mt-0.5 shrink-0"></i>
+                <span><strong>Phone / WhatsApp:</strong> <a href="https://wa.me/919169168158" target="_blank" class="text-stone-950 font-semibold hover:underline">+91 91691 68158</a></span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="mail" class="w-3.5 h-3.5 text-stone-600 mt-0.5 shrink-0"></i>
+                <span><strong>Email:</strong> <a href="mailto:choksiwalajewellers@gmail.com" class="text-stone-950 font-semibold">choksiwalajewellers@gmail.com</a></span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-600 mt-0.5 shrink-0"></i>
+                <span>LONI DARWAJA, SUTAR MOHALLA, KUKSHI, Dhar, MP (454331)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <form onsubmit="handleHomeContactSubmit(event)" class="space-y-4">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-stone-800 mb-1">Your Full Name</label>
+              <input type="text" id="homeCustName" required placeholder="Full Name" class="w-full bg-white border border-stone-300 text-stone-900 text-sm px-3.5 py-2.5 rounded-none focus:border-stone-900 focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-stone-800 mb-1">Select Showroom</label>
+              <select id="homeCustShowroom" class="w-full bg-white border border-stone-300 text-stone-900 text-sm px-3.5 py-2.5 rounded-none focus:border-stone-900 focus:outline-none">
+                <option value="9169168158">Kukshi Flagship (+91 91691 68158)</option>
+                <option value="9169162285">Barwani Branch (+91 91691 62285)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-stone-800 mb-1">Jewellery of Interest</label>
+              <select id="homeCustCategory" class="w-full bg-white border border-stone-300 text-stone-900 text-sm px-3.5 py-2.5 rounded-none focus:border-stone-900 focus:outline-none">
+                <option value="Bridal Rani Haar & Necklaces">Bridal Rani Haar & Necklaces</option>
+                <option value="Gold Bangles & Carved Kadas">Gold Bangles & Carved Kadas</option>
+                <option value="Rings & Couple Bands">Rings & Couple Bands</option>
+                <option value="Chains & Kandora">Chains & Kandora</option>
+                <option value="Earrings & Maang Tikka">Earrings & Maang Tikka</option>
+                <option value="Mangalsutra & Pendants">Mangalsutra & Pendants</option>
+                <option value="Fine Silver Ornaments & Utensils">Fine Silver Ornaments & Utensils</option>
+                <option value="Custom Bespoke Order">Custom Bespoke Order</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-stone-800 mb-1">Message or Budget (Optional)</label>
+              <textarea id="homeCustNotes" rows="2" placeholder="Tell us about the design, weight, or occasion..." class="w-full bg-white border border-stone-300 text-stone-900 text-sm px-3.5 py-2.5 rounded-none focus:border-stone-900 focus:outline-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-stone-900 text-white font-medium text-xs uppercase tracking-[0.18em] py-3.5 hover:bg-stone-800 transition-colors flex items-center justify-center gap-2 shadow-sm">
+              <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+              <span>Send via WhatsApp</span>
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. FOOTER: ALL WHITE, GENEROUS PADDING (py-16 sm:py-20), ROBOTO 400 -->
+  <!-- ========================================================================= -->
+  <footer class="bg-white border-t border-stone-200 text-stone-700 py-16 sm:py-20 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 pb-14 border-b border-stone-200">
+        
+        <!-- Brand Col -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3.5">
+            <img src="images/logo_clean.png" alt="Choksiwala Logo" class="w-12 h-12 object-contain rounded-full">
+            <div>
+              <span class="font-display text-2xl sm:text-3xl font-semibold tracking-wider uppercase text-stone-900">Choksiwala</span>
+              <p class="text-xs uppercase tracking-[0.25em] text-stone-500 mt-0.5 font-medium">Jewellers • Est. 1955</p>
+            </div>
+          </div>
+          <p class="text-stone-600 text-sm leading-relaxed max-w-sm font-normal">
+            Manufacturers and retailers of 100% BIS 91.6 Hallmarked 22K Gold, certified Diamonds, and Fine Silver ornaments in Kukshi & Barwani, Madhya Pradesh.
+          </p>
+          <p class="text-xs text-stone-500 leading-relaxed font-normal">
+            LONI DARWAJA, SUTAR MOHALLA, KUKSHI, Dhar, MP (454331)<br>
+            Main Market, Barwani, MP (451551)
+          </p>
+          <div class="flex flex-wrap items-center gap-4 text-xs uppercase tracking-wider text-stone-900 font-medium pt-2">
+            <a href="tel:+919169168158" class="hover:text-stone-600">+91 91691 68158</a>
+            <span>•</span>
+            <a href="mailto:choksiwalajewellers@gmail.com" class="hover:text-stone-600 lowercase font-normal">choksiwalajewellers@gmail.com</a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="md:col-span-3">
+          <span class="text-xs uppercase tracking-[0.25em] text-stone-900 font-bold block mb-4">Navigation & Maps</span>
+          <ul class="space-y-3 text-sm font-normal">
+            <li><a href="index.html" class="hover:text-stone-950 text-stone-600 transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-stone-950 text-stone-600 transition-colors">About Us</a></li>
+            <li><a href="collections.html" class="hover:text-stone-950 text-stone-600 transition-colors">Jewellery Collection</a></li>
+            <li><a href="contact.html" class="hover:text-stone-950 text-stone-600 transition-colors">Showroom Contact</a></li>
+            <li class="pt-2"><a href="https://share.google/7waf1XWKQStQL0Fre" target="_blank" class="hover:text-stone-950 text-stone-600 transition-colors inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium text-emerald-800"><span>Kukshi on Google Maps</span><i data-lucide="external-link" class="w-3 h-3"></i></a></li>
+            <li><a href="https://share.google/UKaumSr0xIt8iGNDl" target="_blank" class="hover:text-stone-950 text-stone-600 transition-colors inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium text-emerald-800"><span>Barwani on Google Maps</span><i data-lucide="external-link" class="w-3 h-3"></i></a></li>
+          </ul>
+        </div>
+
+        <!-- Hallmarking Info -->
+        <div class="md:col-span-4">
+          <span class="text-xs uppercase tracking-[0.25em] text-stone-900 font-bold block mb-4">BIS 91.6 Assurance</span>
+          <p class="text-sm leading-relaxed text-stone-600 mb-4 font-normal">
+            All gold ornaments conform strictly to Bureau of Indian Standards IS 1417 with triangular hallmark and unique 6-digit laser HUID code.
+          </p>
+          <p class="text-xs text-stone-500 font-medium">
+            Showroom Hours: 10:00 AM – 8:30 PM (Open 7 Days)
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500 font-normal">
+        <p>© 2026 Choksiwala Jewellers. All rights reserved.</p>
+        <p>स्था. १९५५ • Loni Darwaja, Sutar Mohalla, Kukshi & Barwani, MP</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 8. DESKTOP STICKY CALL & WHATSAPP BUTTONS (BOTTOM RIGHT) -->
+  <!-- ========================================================================= -->
+  <div class="hidden md:flex fixed bottom-6 right-6 z-50 flex-col gap-2.5 items-end">
+    
+    <!-- Call Now Button -->
+    <a href="tel:+919169168158" 
+       class="group flex items-center gap-2.5 bg-stone-900/95 hover:bg-stone-950 text-white pl-4 pr-5 py-3 rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.3)] border border-[#DFBE65]/40 transition-all hover:scale-105 backdrop-blur-md"
+       aria-label="Call Choksiwala Jewellers">
+      <div class="w-8 h-8 rounded-full bg-[#DFBE65]/20 flex items-center justify-center text-[#DFBE65]">
+        <i data-lucide="phone-call" class="w-4 h-4"></i>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium leading-none">Call Showroom</span>
+        <span class="text-xs font-semibold text-white tracking-wide mt-0.5">+91 91691 68158</span>
+      </div>
+    </a>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919169168158?text=Namaste%20Choksiwala%20Jewellers,%20I%20would%20like%20to%20enquire%20about%20your%20jewellery." 
+       target="_blank" 
+       class="group flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-[0_10px_25px_rgba(5,150,105,0.4)] transition-all hover:scale-105"
+       aria-label="WhatsApp Choksiwala Jewellers">
+      <div class="relative flex items-center justify-center">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+        </div>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="text-[10px] uppercase tracking-wider text-emerald-100 font-medium leading-none">Instant WhatsApp</span>
+        <span class="text-xs font-bold text-white tracking-wide mt-0.5">Chat with Showroom</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 9. MOBILE STICKY BOTTOM BAR (SIDE-BY-SIDE WITHOUT GAP) -->
+  <!-- ========================================================================= -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 gap-0 border-t border-stone-800 shadow-[0_-5px_20px_rgba(0,0,0,0.25)]">
+    
+    <!-- Left: Call Now -->
+    <a href="tel:+919169168158" 
+       class="bg-stone-900 active:bg-stone-950 text-white font-medium text-xs uppercase tracking-wider py-4 flex items-center justify-center gap-2 border-r border-stone-800 transition-colors">
+      <i data-lucide="phone" class="w-4 h-4 text-[#DFBE65]"></i>
+      <span>Call Now</span>
+    </a>
+
+    <!-- Right: WhatsApp -->
+    <a href="https://wa.me/919169168158?text=Namaste%20Choksiwala%20Jewellers,%20I%20would%20like%20to%20enquire%20about%20your%20jewellery." 
+       target="_blank" 
+       class="bg-emerald-600 active:bg-emerald-700 text-white font-semibold text-xs uppercase tracking-wider py-4 flex items-center justify-center gap-2 transition-colors">
+      <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+      <span>WhatsApp</span>
+    </a>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const btn = document.getElementById('mobileMenuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    // Handle Home WhatsApp Submission
+    function handleHomeContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('homeCustName').value.trim();
+      const showroom = document.getElementById('homeCustShowroom').value;
+      const category = document.getElementById('homeCustCategory').value;
+      const notes = document.getElementById('homeCustNotes').value.trim();
+
+      let msg = `*Choksiwala Jewellers Enquiry*\n`;
+      msg += `Name: ${name}\n`;
+      msg += `Category: ${category}\n`;
+      if (notes) msg += `Details: ${notes}\n`;
+      msg += `Showroom: ${showroom === '9169168158' ? 'Kukshi Flagship' : 'Barwani Branch'}\n`;
+
+      window.open(`https://wa.me/91${showroom}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Shared Leaflet Map Setup Function
+    function setupShowroomMap(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+
+      const kukshi = {
+        name: "Choksiwala • Kukshi (Flagship)",
+        badge: "Flagship • स्था. १९५५",
+        address: "LONI DARWAJA, SUTAR MOHALLA, KUKSHI, Dhar, MP (454331)",
+        phone: "+91 91691 68158",
+        phoneClean: "9169168158",
+        email: "choksiwalajewellers@gmail.com",
+        gmap: "https://share.google/7waf1XWKQStQL0Fre",
+        image: "images/img1_board.jpg",
+        coords: [22.2092, 74.7593]
+      };
+
+      const barwani = {
+        name: "Choksiwala • Barwani (City Branch)",
+        badge: "City Center Showroom",
+        address: "Main Market, Barwani, Madhya Pradesh (451551)",
+        phone: "+91 91691 62285",
+        phoneClean: "9169162285",
+        email: "choksiwalajewellers@gmail.com",
+        gmap: "https://share.google/UKaumSr0xIt8iGNDl",
+        image: "images/img3_inner_showroom.jpg",
+        coords: [22.0334, 74.8978]
+      };
+
+      const map = L.map(elementId, {
+        scrollWheelZoom: false,
+        zoomControl: true,
+      });
+
+      // Clean, reliable map tiles (Zero watermark, no API key required)
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Map &copy; Esri, DeLorme, USGS, NPS',
+        maxZoom: 18
+      }).addTo(map);
+
+      function createMarkerIcon(label, isMain) {
+        return L.divIcon({
+          className: 'custom-leaflet-marker',
+          html: `
+            <div style="transform: translate(-50%, -100%); cursor: pointer;" class="flex flex-col items-center group">
+              <div style="position: relative; display: flex; align-items: center; justify-content: center;">
+                <span style="position: absolute; width: 34px; height: 34px; border-radius: 9999px; background: rgba(184, 146, 34, 0.35); animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;"></span>
+                <div style="width: 38px; height: 38px; border-radius: 9999px; background: #1c1917; border: 2.5px solid #DFBE65; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                  <svg style="width: 20px; height: 20px; fill: #DFBE65;" viewBox="0 0 24 24"><path d="M12 2L4 9l8 13 8-13-8-7z"/></svg>
+                </div>
+              </div>
+              <div style="margin-top: 4px; background: rgba(28, 25, 23, 0.95); color: #ffffff; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2); white-space: nowrap; border: 1px solid rgba(223, 190, 101, 0.4);">
+                ${label}
+              </div>
+            </div>
+          `,
+          iconSize: [0, 0],
+          iconAnchor: [0, 0],
+          popupAnchor: [0, -42]
+        });
+      }
+
+      function createPopupHTML(loc) {
+        return `
+          <div style="width: 290px; max-width: 90vw; background: #ffffff; overflow: hidden; font-family: 'Roboto', sans-serif;">
+            <div style="height: 130px; width: 100%; position: relative; background: #1c1917; overflow: hidden;">
+              <img src="${loc.image}" alt="${loc.name}" style="width: 100%; height: 100%; object-fit: cover;">
+              <div style="position: absolute; top: 8px; left: 8px; background: rgba(28, 25, 23, 0.88); color: #ffffff; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 7px;">
+                ${loc.badge}
+              </div>
+            </div>
+            <div style="padding: 14px 14px 16px;">
+              <h4 style="margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #1c1917; font-family: 'Cormorant Garamond', Georgia, serif; letter-spacing: 0.05em;">
+                ${loc.name}
+              </h4>
+              <p style="margin: 0 0 10px; font-size: 12px; color: #57534e; line-height: 1.45;">
+                ${loc.address}
+              </p>
+              <div style="padding: 8px 0; border-top: 1px solid #f5f5f4; border-bottom: 1px solid #f5f5f4; font-size: 12px; color: #44403c; margin-bottom: 10px; line-height: 1.6;">
+                <div><strong>WhatsApp:</strong> <a href="https://wa.me/${loc.phoneClean}" target="_blank" style="color: #047857; text-decoration: underline; font-weight: 600;">${loc.phone}</a></div>
+                <div><strong>Email:</strong> <a href="mailto:${loc.email}" style="color: #1c1917;">${loc.email}</a></div>
+                <div><strong>Hours:</strong> 10:00 AM – 8:30 PM (Daily)</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <a href="${loc.gmap}" target="_blank" style="flex: 1; text-align: center; background: #1c1917; color: #ffffff; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 6px; text-decoration: none; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                  <span>Directions</span>
+                  <svg style="width: 12px; height: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+                <a href="https://wa.me/${loc.phoneClean}?text=Namaste%20Choksiwala%20Jewellers,%20I%20am%20enquiring%20about%20your%20jewellery." target="_blank" style="flex: 1; text-align: center; border: 1px solid #d6d3d1; color: #1c1917; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 6px; text-decoration: none; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const kukshiMarker = L.marker(kukshi.coords, { icon: createMarkerIcon('Kukshi Flagship', true) })
+        .bindPopup(createPopupHTML(kukshi), { autoPan: true, autoPanPadding: [30, 30] })
+        .addTo(map);
+
+      const barwaniMarker = L.marker(barwani.coords, { icon: createMarkerIcon('Barwani Branch', false) })
+        .bindPopup(createPopupHTML(barwani), { autoPan: true, autoPanPadding: [30, 30] })
+        .addTo(map);
+
+      const bounds = L.latLngBounds([kukshi.coords, barwani.coords]);
+      map.fitBounds(bounds, { padding: [50, 70] });
+
+      // MAKE KUKSHI SHOWROOM POPUP VISIBLE INITIALLY ON PAGE LOAD
+      setTimeout(() => {
+        kukshiMarker.openPopup();
+      }, 400);
+
+      // Controls
+      const btnContainer = document.getElementById(elementId + '-controls');
+      function updateActiveBtn(target) {
+        if (!btnContainer) return;
+        btnContainer.querySelectorAll('[data-loc]').forEach(btn => {
+          if (btn.dataset.loc === target) {
+            btn.className = 'text-xs uppercase tracking-wider font-semibold px-2.5 py-1 bg-stone-900 text-white rounded transition-colors';
+          } else {
+            btn.className = 'text-xs uppercase tracking-wider font-medium px-2.5 py-1 border border-stone-300 text-stone-700 rounded hover:border-stone-900 hover:text-stone-950 transition-colors';
+          }
+        });
+      }
+
+      if (btnContainer) {
+        // Highlight Kukshi as initially active
+        updateActiveBtn('kukshi');
+
+        btnContainer.querySelectorAll('[data-loc]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const target = btn.dataset.loc;
+            updateActiveBtn(target);
+            if (target === 'kukshi') {
+              map.flyTo(kukshi.coords, 14, { duration: 1.0 });
+              setTimeout(() => kukshiMarker.openPopup(), 1000);
+            } else if (target === 'barwani') {
+              map.flyTo(barwani.coords, 14, { duration: 1.0 });
+              setTimeout(() => barwaniMarker.openPopup(), 1000);
+            } else {
+              map.fitBounds(bounds, { padding: [50, 70], duration: 1.0 });
+              setTimeout(() => kukshiMarker.openPopup(), 1000);
+            }
+          });
+        });
+      }
+    }
+
+    // Auto-fading Transparent Jewellery Slider (Every 3 seconds)
+    function initJewellerySlider() {
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.hero-jewel-slide');
+      const dots = document.querySelectorAll('.hero-slide-dot');
+      const totalSlides = slides.length;
+      if (totalSlides === 0) return;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+            slide.classList.add('opacity-100', 'scale-100');
+          } else {
+            slide.classList.remove('opacity-100', 'scale-100');
+            slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+          }
+        });
+        dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.className = 'hero-slide-dot w-8 h-1 rounded-full bg-[#DFBE65] transition-all';
+          } else {
+            dot.className = 'hero-slide-dot w-2.5 h-1 rounded-full bg-white/40 hover:bg-white/70 transition-all';
+          }
+        });
+        currentSlide = index;
+      }
+
+      setInterval(() => {
+        let next = (currentSlide + 1) % totalSlides;
+        showSlide(next);
+      }, 3000);
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          showSlide(parseInt(dot.dataset.target, 10));
+        });
+      });
+    }
+
+    // Initialize Map and Slider on DOM load
+    window.addEventListener('DOMContentLoaded', () => {
+      setupShowroomMap('homeMap');
+      initJewellerySlider();
+    });
+  </script>
+</body>
+</html>
